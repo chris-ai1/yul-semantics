@@ -102,9 +102,10 @@ lake build
   judgment. That machinery belongs with function-level optimizations (inlining) and is deferred; the
   current block congruence carries an explicit `hoist`-agreement side condition (`rfl` for rewrites
   that do not touch top-level `funDef`s).
-- **`reads`-flag soundness.** `EVM.effects_sound` proves the `deterministic`/`writes`/`halts` flags
-  sound; a machine-checked soundness for `reads` needs a notion of state observation (a read
-  footprint) and is deferred. The flag is documented and currently unused by any proof.
+- **Account-map consistency.** The abstract world maps (`balanceOf`/`nonceOf`/`extCodeOf`/…) are
+  independent; the intended cross-map invariants are captured by the optional `ExecEnv.WF`
+  predicate available to downstream proofs, not globally enforced (see
+  [`DESIGN.md`](./DESIGN.md)).
 - **Program logic (Hoare / separation).** An optional layer on top of the relational semantics;
   deferred until needed. Not required for the equivalence/simulation results.
 - **Divergence reasoning.** Not needed for the main compiler theorem (the gas-metered target cannot
